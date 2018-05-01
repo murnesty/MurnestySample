@@ -123,7 +123,7 @@
                     </GroupBox>
                 </StackPanel>
             </TabItem>
-            <TabItem Header="Canvas">
+            <TabItem Header="canvas">
                 <Canvas>
                     <Button Canvas.Left="100" Canvas.Bottom="100"
                             Canvas.ZIndex="1" Background="Red">On Top!</Button>
@@ -176,6 +176,55 @@
                         </StackPanel>
                     </TabItem>
                 </TabControl>
+            </TabItem>
+            <TabItem Header="wrap panel">
+                <TabControl TabStripPlacement="Left">
+                    <TabItem Header="Horizontal">
+                        <WrapPanel Orientation="Horizontal">
+                            <WrapPanel.Resources>
+                                <Style TargetType="Button">
+                                    <Setter Property="Padding" Value="30"></Setter>
+                                </Style>
+                            </WrapPanel.Resources>
+                            <Button Content="1" Background="Red"></Button>
+                            <Button Content="2" Background="Purple"></Button>
+                            <Button Content="3" Background="RosyBrown"></Button>
+                            <Button Content="4" Background="RoyalBlue"></Button>
+                            <Button Content="5" Background="Salmon"></Button>
+                            <Button Content="6" Background="Pink"></Button>
+                            <Button Content="7" Background="PaleGreen"></Button>
+                            <Button Content="8" Background="Orange"></Button>
+                            <Button Content="9" Background="PaleGoldenrod"></Button>
+                        </WrapPanel>
+                    </TabItem>
+                    <TabItem Header="Vertical">
+                        <WrapPanel Orientation="Vertical">
+                            <WrapPanel.Resources>
+                                <Style TargetType="Button">
+                                    <Setter Property="Padding" Value="30"></Setter>
+                                </Style>
+                            </WrapPanel.Resources>
+                            <Button Content="1" Background="Red"></Button>
+                            <Button Content="2" Background="Purple"></Button>
+                            <Button Content="3" Background="RosyBrown"></Button>
+                            <Button Content="4" Background="RoyalBlue"></Button>
+                            <Button Content="5" Background="Salmon"></Button>
+                            <Button Content="6" Background="Pink"></Button>
+                            <Button Content="7" Background="PaleGreen"></Button>
+                            <Button Content="8" Background="Orange"></Button>
+                            <Button Content="9" Background="PaleGoldenrod"></Button>
+                        </WrapPanel>
+                    </TabItem>
+                </TabControl>
+            </TabItem>
+            <TabItem Header="dock panel">
+                <DockPanel>
+                    <Button DockPanel.Dock="Top" Background="Red">1 (Top)</Button>
+                    <Button DockPanel.Dock="Left" Background="Orange">2 (Left)</Button>
+                    <Button DockPanel.Dock="Right" Background="Yellow">3 (Right)</Button>
+                    <Button DockPanel.Dock="Bottom" Background="Lime">4 (Bottom)</Button>
+                    <Button Background="Aqua">5</Button>
+                </DockPanel>
             </TabItem>
         </TabControl>
     </Grid>
