@@ -82,5 +82,24 @@ namespace MurnestySample.View
         }
         #endregion
 
+        #region button
+        private void OpenCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+        private void OpenCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            TextBlock2.Text = "Invoked open command";
+        }
+        private void SaveCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+        private void SaveCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            TextBlock2.Text = "Invoked save command";
+        }
+        #endregion
+
     }
 }

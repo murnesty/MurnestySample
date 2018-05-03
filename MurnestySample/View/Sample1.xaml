@@ -226,6 +226,32 @@
                     <Button Background="Aqua">5</Button>
                 </DockPanel>
             </TabItem>
+            <TabItem Header="command">
+                <StackPanel>
+                    <StackPanel.CommandBindings>
+                        <CommandBinding Command="ApplicationCommands.Open" Executed="OpenCommand_Executed" CanExecute="OpenCommand_CanExecute" />
+                        <CommandBinding Command="ApplicationCommands.Save" Executed="SaveCommand_Executed" CanExecute="SaveCommand_CanExecute" />
+                    </StackPanel.CommandBindings>
+                    <StackPanel.InputBindings>
+                        <KeyBinding Key="O" Modifiers="Ctrl" Command="ApplicationCommands.Open"/>
+                        <KeyBinding Key="S" Modifiers="Ctrl" Command="ApplicationCommands.Save"/>
+                    </StackPanel.InputBindings>
+                    <TextBlock Name="TextBlock2" />
+                    <Button Content="Open" Command="ApplicationCommands.Open"/>
+                    <Button Content="Save" Command="ApplicationCommands.Save"/>
+                    <TextBox Name="TextBox1" />
+                    <Button Command="Cut" CommandTarget="{Binding ElementName=TextBox1}"
+                            Content="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}"/>
+                    <Button Command="Copy" CommandTarget="{Binding ElementName=TextBox1}"
+                            Content="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}"/>
+                    <Button Command="Paste" CommandTarget="{Binding ElementName=TextBox1}"
+                            Content="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}"/>
+                    <Button Command="Undo" CommandTarget="{Binding ElementName=TextBox1}"
+                            Content="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}"/>
+                    <Button Command="Redo" CommandTarget="{Binding ElementName=TextBox1}"
+                            Content="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}"/>
+                </StackPanel>
+            </TabItem>
         </TabControl>
     </Grid>
 </Window>
