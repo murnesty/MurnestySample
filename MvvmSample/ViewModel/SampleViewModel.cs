@@ -2,32 +2,42 @@
 using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
+using MvvmSample.Model;
+using MvvmSample.Reader;
 
 namespace MvvmSample.ViewModel
 {
     public class SampleViewModel : ViewModelBase
     {
-        private String _text1; public String Text1 { get { return _text1; } set { Set(() => Text1, ref _text1, value); } }
-        private Brush _text1Brush; public Brush Text1Brush { get { return _text1Brush; } set { Set(() => Text1Brush, ref _text1Brush, value); } }
-        public ICommand MouseEnterTextBlockCommand { get; set; }
-        public ICommand MouseLeaveTextBlockCommand { get; set; }
-        public ICommand ButtonEnterCommand { get; set; }
-        public ICommand ButtonLeaveCommand { get; set; }
-
         public SampleViewModel()
         {
+            // binding & event
             Text1 = "Test";
             MouseEnterTextBlockCommand = new RelayCommand(MouseEnterTextBlockMethod);
             MouseLeaveTextBlockCommand = new RelayCommand(MouseLeaveTextBlockMethod);
             ButtonEnterCommand = new RelayCommand<String>(ButtonEnterMethod);
             ButtonLeaveCommand = new RelayCommand<String>(ButtonLeaveMethod);
             Text1Brush = null;
+
+            // data grid
+            ReadNameCommand = new RelayCommand(ReadNameMethod);
         }
+
+        #region binding & event
+        private String _text1; public String Text1 { get { return _text1; } set { Set(() => Text1, ref _text1, value); } }
+        private Brush _text1Brush; public Brush Text1Brush { get { return _text1Brush; } set { Set(() => Text1Brush, ref _text1Brush, value); } }
+        public ICommand MouseEnterTextBlockCommand { get; set; }
+        public ICommand MouseLeaveTextBlockCommand { get; set; }
+        public ICommand ButtonEnterCommand { get; set; }
+        public ICommand ButtonLeaveCommand { get; set; }
 
         private void MouseEnterTextBlockMethod()
         {
@@ -39,13 +49,54 @@ namespace MvvmSample.ViewModel
         }
         private void ButtonEnterMethod(String arg)
         {
-            Text1 = "Mouse Enter with " + arg;
-            Text1Brush = (Brush)System.ComponentModel.TypeDescriptor.GetConverter(
+            try
+            {
+                Text1 = "Mouse Enter with " + arg;
+                Text1Brush = (Brush)System.ComponentModel.TypeDescriptor.GetConverter(
                     typeof(Brush)).ConvertFromInvariantString(arg);
+            }
+            catch { }
         }
         private void ButtonLeaveMethod(String arg)
         {
             Text1 = "Mouse Leave with " + arg;
         }
+        #endregion
+
+        #region datagrid
+        private ObservableCollection<NameSelectionEntry> _nameEntries;
+        public ObservableCollection<NameSelectionEntry> NameEntries
+        {
+            get { return _nameEntries; }
+            set { Set(() => NameEntries, ref _nameEntries, value); }
+        }
+        private ListCollectionView _nameView;
+        public ListCollectionView NameView
+        {
+            get { return _nameView; }
+            set { Set(() => NameView, ref _nameView, value); }
+        }
+        public ICommand ReadNameCommand { get; set; }
+
+        private void ReadNameMethod()
+        {
+            NameEntries = new ObservableCollection<NameSelectionEntry>(NameReader.GetNameEntries());
+            if (NameEntries == null)
+                return;
+            NameView = CollectionViewSource.GetDefaultView(NameEntries) as ListCollectionView;
+            //for (int i = 0; i < NameEntries.Count; i++)
+            //{
+            //    NameSelectionEntry entry = NameEntries[i] as NameSelectionEntry;
+            //    if (entry == null)
+            //        continue;
+            //
+            //    //entry.PropertyChanged += NameEntryPropertyChanged;
+            //}
+        }
+        private void NameEntryPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+
+        }
+        #endregion
     }
 }

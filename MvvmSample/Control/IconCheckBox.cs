@@ -41,15 +41,14 @@ namespace MvvmSample.Control
     /// Step 2)
     /// Go ahead and use your control in the XAML file.
     ///
-    ///     <MyNamespace:ColorButton/>
+    ///     <MyNamespace:IconCheckBox/>
     ///
     /// </summary>
-    public class ColorButton : Button
+    public class IconCheckBox : CheckBox
     {
-        // custome control
-        static ColorButton()
+        static IconCheckBox()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(ColorButton), new FrameworkPropertyMetadata(typeof(ColorButton)));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(IconCheckBox), new FrameworkPropertyMetadata(typeof(IconCheckBox)));
         }
     }
 }

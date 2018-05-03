@@ -78,10 +78,12 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Control\ColorButton.cs" />
-    <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="Control\IconCheckBox.cs" />
+    <Compile Include="Model\NameEntry.cs" />
+    <Compile Include="Model\NameSelectionEntry.cs" />
+    <Compile Include="Reader\NameReader.cs" />
     <Compile Include="ViewModel\SampleViewModel.cs" />
     <Compile Include="ViewModel\SampleViewModelLocator.cs" />
-    <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="View\SampleView.xaml.cs">
       <DependentUpon>SampleView.xaml</DependentUpon>
     </Compile>
@@ -135,11 +137,13 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Converter\" />
-    <Folder Include="Model\" />
     <Folder Include="Style\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="FodyWeavers.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resource\Custom-Icon-Design-Mini-Star-full.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

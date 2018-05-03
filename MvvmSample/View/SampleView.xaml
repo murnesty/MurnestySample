@@ -6,6 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MvvmSample.View"
         xmlns:control="clr-namespace:MvvmSample.Control"
+        xmlns:model="clr-namespace:MvvmSample.Model"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Title="SampleView" Height="450" Width="800"
@@ -28,6 +29,7 @@
                 <Button Content="Testing" Command="{Binding ButtonEnterCommand}" 
                         CommandParameter="{Binding Path=Tag,RelativeSource={RelativeSource Mode=FindAncestor,AncestorLevel=1,AncestorType=StackPanel},FallbackValue=BindingFailed}" />
                 <WrapPanel Height="150" Width="150">
+                    <!-- generic and custum control -->
                     <control:ColorButton Width="50" Height="50" Content="Red"></control:ColorButton>
                     <control:ColorButton Width="50" Height="50" Content="Blue"></control:ColorButton>
                     <control:ColorButton Width="50" Height="50" Content="Green"></control:ColorButton>
@@ -39,6 +41,24 @@
                     <control:ColorButton Width="50" Height="50" Content="Black"></control:ColorButton>
                 </WrapPanel>
             </StackPanel>
+        </TabItem>
+        <TabItem Header="DataGrid">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+                <DataGrid Grid.Row="0" ItemsSource="{Binding NameEntries}" AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridCheckBoxColumn Binding="{Binding (model:NameSelectionEntry.IsSelected)}"
+                                                ElementStyle="{DynamicResource BookmarkCheckbox}"
+                                                CellStyle="{DynamicResource BookmarkCell}"></DataGridCheckBoxColumn>
+                        <DataGridTextColumn Binding="{Binding (model:NameSelectionEntry.ID)}"></DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding (model:NameSelectionEntry.Name)}"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <Button Grid.Row="1" Content="Read" Command="{Binding ReadNameCommand}"/>
+            </Grid>
         </TabItem>
     </TabControl>
 </Window>

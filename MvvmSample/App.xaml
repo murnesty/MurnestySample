@@ -6,10 +6,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              d1p1:Ignorable="d" 
              xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006">
-  <Application.Resources>
-    <ResourceDictionary>
-            <vm:ViewModelLocator x:Key="MainLocator" d:IsDataSource="True" xmlns:vm="clr-namespace:MvvmSample.ViewModel" />
+    <Application.Resources>
+        <ResourceDictionary>
             <vm:SampleViewModelLocator x:Key="SampleLocator" d:IsDataSource="True" xmlns:vm="clr-namespace:MvvmSample.ViewModel" />
+            <ResourceDictionary.MergedDictionaries>
+                <!-- style attachment -->
+                <ResourceDictionary Source="pack://application:,,,/Themes/Generic.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
-  </Application.Resources>
+    </Application.Resources>
 </Application>
