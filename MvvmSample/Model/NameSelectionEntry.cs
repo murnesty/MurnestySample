@@ -11,9 +11,24 @@ namespace MvvmSample.Model
     public class NameSelectionEntry : ObservableObject
     {
         private static Int32 IteratingId { get; set; }
-        public Boolean IsSelected { get; set; }
-        public Int32 ID { get; set; }
-        public String Name { get; set; }
+        private Boolean _isSelected;
+        public Boolean IsSelected
+        {
+            get { return _isSelected; }
+            set { Set(() => IsSelected, ref _isSelected, value); }
+        }
+        private Int32 _id;
+        public Int32 ID
+        {
+            get { return _id; }
+            set { Set(() => ID, ref _id, value); }
+        }
+        private String _name;
+        public String Name
+        {
+            get { return _name; }
+            set { Set(() => Name, ref _name, value); }
+        }
 
         static NameSelectionEntry()
         {

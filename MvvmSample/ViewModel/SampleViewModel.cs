@@ -77,6 +77,34 @@ namespace MvvmSample.ViewModel
             set { Set(() => NameView, ref _nameView, value); }
         }
         public ICommand ReadNameCommand { get; set; }
+        private NameSelectionEntry _selectedNameEntry;
+        public NameSelectionEntry SelectedNameEntry
+        {
+            get { return _selectedNameEntry; }
+            set
+            {
+                Set(() => SelectedNameEntry, ref _selectedNameEntry, value);
+                UpdateSelectedNameEntry();
+            }
+        }
+        private String _selectedName;
+        public String SelectedName
+        {
+            get { return _selectedName; }
+            set { Set(() => SelectedName, ref _selectedName, value); }
+        }
+        private Int32 _selectedId;
+        public Int32 SelectedId
+        {
+            get { return _selectedId; }
+            set { Set(() => SelectedId, ref _selectedId, value); }
+        }
+        private Boolean _selectedSelected;
+        public Boolean SelectedSelected
+        {
+            get { return _selectedSelected; }
+            set { Set(() => SelectedSelected, ref _selectedSelected, value); }
+        }
 
         private void ReadNameMethod()
         {
@@ -84,18 +112,24 @@ namespace MvvmSample.ViewModel
             if (NameEntries == null)
                 return;
             NameView = CollectionViewSource.GetDefaultView(NameEntries) as ListCollectionView;
-            //for (int i = 0; i < NameEntries.Count; i++)
-            //{
-            //    NameSelectionEntry entry = NameEntries[i] as NameSelectionEntry;
-            //    if (entry == null)
-            //        continue;
-            //
-            //    //entry.PropertyChanged += NameEntryPropertyChanged;
-            //}
+            for (int i = 0; i < NameEntries.Count; i++)
+            {
+                NameSelectionEntry entry = NameEntries[i] as NameSelectionEntry;
+                if (entry == null)
+                    continue;
+
+                entry.PropertyChanged += NameEntryPropertyChanged;
+            }
         }
         private void NameEntryPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-
+            UpdateSelectedNameEntry();
+        }
+        private void UpdateSelectedNameEntry()
+        {
+            SelectedSelected = SelectedNameEntry.IsSelected;
+            SelectedId = SelectedNameEntry.ID;
+            SelectedName = SelectedNameEntry.Name;
         }
         #endregion
     }

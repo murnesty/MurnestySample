@@ -48,15 +48,41 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="50"/>
                 </Grid.RowDefinitions>
-                <DataGrid Grid.Row="0" ItemsSource="{Binding NameView}" AutoGenerateColumns="False">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <!-- Validation.ErrorTemplate   : to remove the red border when user select empty row (eg, last roll) -->
+                <!-- SelectionMode              : to select multiple entries -->
+                <DataGrid Grid.Row="0"  Grid.Column="0"
+                          ItemsSource="{Binding NameView, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                          AutoGenerateColumns="False" 
+                          Validation.ErrorTemplate="{x:Null}" 
+                          SelectionMode="Extended" 
+                          SelectedItem="{Binding SelectedNameEntry}">
                     <DataGrid.Columns>
-                        <DataGridCheckBoxColumn Binding="{Binding IsSelected}"
+                        <!-- Binding to (model:NameSelectionEntry.IsSelected) will cause hybridcollection having null key -->
+                        <DataGridCheckBoxColumn Binding="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                                                 ElementStyle="{DynamicResource BookmarkCheckbox}"
                                                 CellStyle="{DynamicResource BookmarkCell}"></DataGridCheckBoxColumn>
-                        <DataGridTextColumn Binding="{Binding ID}"></DataGridTextColumn>
-                        <DataGridTextColumn Binding="{Binding Name}"></DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding ID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
+                <StackPanel Grid.Row="0" Grid.Column="1">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock>Selected :</TextBlock>
+                        <TextBox Text="{Binding SelectedSelected}"></TextBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock>ID : </TextBlock>
+                        <TextBox Text="{Binding SelectedId}"></TextBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock>Name :</TextBlock>
+                        <TextBox Text="{Binding SelectedName}"></TextBox>
+                    </StackPanel>
+                </StackPanel>
                 <Button Grid.Row="1" Content="Read" Command="{Binding ReadNameCommand}"/>
             </Grid>
         </TabItem>
