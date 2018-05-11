@@ -8,7 +8,7 @@ using GalaSoft.MvvmLight;
 namespace MvvmSample.Model
 {
     // ObservableObject needed to raise property changed event
-    public class NameSelectionEntry
+    public class NameSelectionEntry : ObservableObject
     {
         private static Int32 IteratingId { get; set; }
         public Boolean IsSelected { get; set; }

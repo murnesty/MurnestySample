@@ -48,13 +48,13 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="50"/>
                 </Grid.RowDefinitions>
-                <DataGrid Grid.Row="0" ItemsSource="{Binding NameEntries}" AutoGenerateColumns="False">
+                <DataGrid Grid.Row="0" ItemsSource="{Binding NameView}" AutoGenerateColumns="False">
                     <DataGrid.Columns>
-                        <DataGridCheckBoxColumn Binding="{Binding (model:NameSelectionEntry.IsSelected)}"
+                        <DataGridCheckBoxColumn Binding="{Binding IsSelected}"
                                                 ElementStyle="{DynamicResource BookmarkCheckbox}"
                                                 CellStyle="{DynamicResource BookmarkCell}"></DataGridCheckBoxColumn>
-                        <DataGridTextColumn Binding="{Binding (model:NameSelectionEntry.ID)}"></DataGridTextColumn>
-                        <DataGridTextColumn Binding="{Binding (model:NameSelectionEntry.Name)}"></DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding ID}"></DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding Name}"></DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
                 <Button Grid.Row="1" Content="Read" Command="{Binding ReadNameCommand}"/>
