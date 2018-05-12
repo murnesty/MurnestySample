@@ -86,5 +86,19 @@
                 <Button Grid.Row="1" Content="Read" Command="{Binding ReadNameCommand}"/>
             </Grid>
         </TabItem>
+        <TabItem Header="Controls">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <control:LabelTextbox Grid.Row="0" Label="ID: " Value="{Binding NameEntry.ID}"/>
+                <control:LabelTextbox Grid.Row="1" Label="Name: " Value="{Binding NameEntry.Name}"/>
+                <control:LabelTextbox Grid.Row="2" Label="Is Selected: " Value="{Binding NameEntry.IsSelected}"/>
+                <Button Grid.Row="3" Content="Load" Command="{Binding LoadNameEntryCommand}"></Button>
+            </Grid>
+        </TabItem>
     </TabControl>
 </Window>

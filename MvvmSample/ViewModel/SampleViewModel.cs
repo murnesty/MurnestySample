@@ -29,6 +29,9 @@ namespace MvvmSample.ViewModel
 
             // data grid
             ReadNameCommand = new RelayCommand(ReadNameMethod);
+
+            // control
+            LoadNameEntryCommand = new RelayCommand(LoadNameEntryMethod);
         }
 
         #region binding & event
@@ -130,6 +133,24 @@ namespace MvvmSample.ViewModel
             SelectedSelected = SelectedNameEntry.IsSelected;
             SelectedId = SelectedNameEntry.ID;
             SelectedName = SelectedNameEntry.Name;
+        }
+        #endregion
+
+        #region control
+        private NameSelectionEntry _nameEntry;
+        public NameSelectionEntry NameEntry
+        {
+            get { return _nameEntry; }
+            set { Set(() => NameEntry, ref _nameEntry, value); }
+        }
+        public ICommand LoadNameEntryCommand { get; set; }
+        private void LoadNameEntryMethod()
+        {
+            NameEntry = new NameSelectionEntry
+            {
+                Name = "Kanasai",
+                IsSelected = true
+            };
         }
         #endregion
     }

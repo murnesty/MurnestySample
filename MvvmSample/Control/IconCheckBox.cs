@@ -44,7 +44,7 @@ namespace MvvmSample.Control
     ///     <MyNamespace:IconCheckBox/>
     ///
     /// </summary>
-    public class IconCheckBox : CheckBox
+    public class IconCheckBox : CheckBox   // custom control
     {
         static IconCheckBox()
         {

@@ -44,7 +44,7 @@ namespace MvvmSample.Control
     ///     <MyNamespace:ColorButton/>
     ///
     /// </summary>
-    public class ColorButton : Button
+    public class ColorButton : Button   // custom control
     {
         // custome control
         static ColorButton()
