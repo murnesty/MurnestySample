@@ -200,5 +200,45 @@
                 </ItemsControl>
             </Grid>
         </TabItem>
+        <TabItem Header="ItemControl">
+            <Grid  Background="LightGray">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="25"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Background="Gray">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="10"/>
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="10" Command="{Binding ImgFlipperCommand}" CommandParameter="Prev" Content="L"/>
+                    <Image Grid.Column="1" Source="{Binding ImageSrc}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5"/>
+                    <Button Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Stretch" Width="10" Command="{Binding ImgFlipperCommand}" CommandParameter="Next" Content="R"/>
+                </Grid>
+                <ItemsControl Grid.Row="1" ItemsSource="{Binding ItemControlSrc}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <control:SmallCircleButton Content="{Binding ButtonText}" Width="15" Margin="3" Background="{Binding ButtonBackground}"
+                                    Command="{Binding ButtonClickCommand}" CommandParameter="{Binding ButtonClickCommandParameter}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseEnter">
+                                        <i:InvokeCommandAction Command="{Binding ButtonMouseEnterCommand}" CommandParameter="{Binding ButtonMouseEnterCommandParameter}"/>
+                                    </i:EventTrigger>
+                                    <i:EventTrigger EventName="MouseLeave">
+                                        <i:InvokeCommandAction Command="{Binding ButtonMouseLeaveCommand}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </control:SmallCircleButton>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Grid>
+        </TabItem>
     </TabControl>
 </Window>

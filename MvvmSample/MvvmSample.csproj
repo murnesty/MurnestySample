@@ -84,6 +84,7 @@
     <Compile Include="Control\LabelTextbox.xaml.cs">
       <DependentUpon>LabelTextbox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Control\SmallCircleButton.cs" />
     <Compile Include="Model\NameEntry.cs" />
     <Compile Include="Model\NameSelectionEntry.cs" />
     <Compile Include="Reader\NameReader.cs" />

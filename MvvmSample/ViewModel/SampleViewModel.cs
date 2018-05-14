@@ -47,7 +47,7 @@ namespace MvvmSample.ViewModel
             // item control
             Init();
 
-            SelectImage(0);
+            SelectImage(0, true);
         }
 
         #region binding & event
@@ -215,7 +215,7 @@ namespace MvvmSample.ViewModel
         {
             if (!Int32.TryParse(arg, out Int32 index))
                 return;
-            SelectImage(index);
+            SelectImage(index, true);
         }
         public ICommand ImgFlipperCommand { get; set; }
         private void ImgFlipperMethod(String arg)
@@ -232,19 +232,19 @@ namespace MvvmSample.ViewModel
                         CurrImgIndex = ImgList.Length - 1;
                     break;
             }
-            SelectImage(CurrImgIndex);
+            SelectImage(CurrImgIndex, true);
         }
         public ICommand ImgButtonEnterCommand { get; set; }
         private void ImgButtonEnterMethod(String arg)
         {
             if (!Int32.TryParse(arg, out Int32 index))
                 return;
-            SelectImage(index);
+            SelectImage(index, false);
         }
         public ICommand ImgButtonLeaveCommand { get; set; }
         private void ImgButtonLeaveMethod()
         {
-            SelectImage(CurrImgIndex);
+            SelectImage(CurrImgIndex, false);
         }
         #endregion
 
@@ -278,30 +278,41 @@ namespace MvvmSample.ViewModel
         }
         #endregion
 
-        private void SelectImage(Int32 index)
+        private void SelectImage(Int32 index, Boolean isSticky)
         {
             if (index > ImgList.Length || index < 0)
                 return;
-            CurrImgIndex = index;
             ImageSrc = new BitmapImage(new Uri(ImgList[index], UriKind.RelativeOrAbsolute));
 
-            Img1ButtonColor = Brushes.Gray;
-            Img2ButtonColor = Brushes.Gray;
-            Img3ButtonColor = Brushes.Gray;
-            Img4ButtonColor = Brushes.Gray;
-            switch (index)
+            if (isSticky)
             {
-                case 0: Img1ButtonColor = Brushes.LightBlue; break;
-                case 1: Img2ButtonColor = Brushes.LightBlue; break;
-                case 2: Img3ButtonColor = Brushes.LightBlue; break;
-                case 3: Img4ButtonColor = Brushes.LightBlue; break;
-            }
+                CurrImgIndex = index;
+                Img1ButtonColor = Brushes.Gray;
+                Img2ButtonColor = Brushes.Gray;
+                Img3ButtonColor = Brushes.Gray;
+                Img4ButtonColor = Brushes.Gray;
+                switch (index)
+                {
+                    case 0:
+                        Img1ButtonColor = Brushes.LightBlue;
+                        break;
+                    case 1:
+                        Img2ButtonColor = Brushes.LightBlue;
+                        break;
+                    case 2:
+                        Img3ButtonColor = Brushes.LightBlue;
+                        break;
+                    case 3:
+                        Img4ButtonColor = Brushes.LightBlue;
+                        break;
+                }
 
-            ItemControlSrc[0].ButtonBackground = Brushes.Gray;
-            ItemControlSrc[1].ButtonBackground = Brushes.Gray;
-            ItemControlSrc[2].ButtonBackground = Brushes.Gray;
-            ItemControlSrc[3].ButtonBackground = Brushes.Gray;
-            ItemControlSrc[CurrImgIndex].ButtonBackground = Brushes.LightBlue;
+                ItemControlSrc[0].ButtonBackground = Brushes.Gray;
+                ItemControlSrc[1].ButtonBackground = Brushes.Gray;
+                ItemControlSrc[2].ButtonBackground = Brushes.Gray;
+                ItemControlSrc[3].ButtonBackground = Brushes.Gray;
+                ItemControlSrc[index].ButtonBackground = Brushes.LightBlue;
+            }
         }
     }
 }

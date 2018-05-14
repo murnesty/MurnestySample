@@ -103,7 +103,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
     <!-- Bookmark checkbox -->
     <Style x:Key="BookmarkCheckbox" TargetType="CheckBox">
         <Setter Property="Cursor" Value="Hand"></Setter>
@@ -166,5 +166,30 @@
                 <Setter Property="Background" Value="Transparent"/>
             </Trigger>
         </Style.Triggers>
+    </Style>
+
+    <Style TargetType="{x:Type control:SmallCircleButton}"
+           BasedOn="{StaticResource {x:Type Button}}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid>
+                        <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                        </Border>
+                        <Ellipse Height="8" Width="8" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,0">
+                            <Ellipse.Fill>
+                                <RadialGradientBrush>
+                                    <GradientStop Offset="0" Color="{TemplateBinding Background}"/>
+                                    <GradientStop Offset="0.88" Color="Gray"/>
+                                    <GradientStop Offset="1" Color="Gray"/>
+                                </RadialGradientBrush>
+                            </Ellipse.Fill>
+                        </Ellipse>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 </ResourceDictionary>
