@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using MvvmSample.Model;
 using MvvmSample.Reader;
+using System.Windows.Media.Imaging;
 
 namespace MvvmSample.ViewModel
 {
@@ -32,6 +33,13 @@ namespace MvvmSample.ViewModel
 
             // control
             LoadNameEntryCommand = new RelayCommand(LoadNameEntryMethod);
+
+            // image
+            ImgFilePath = @"pack://application:,,,/Resource/apple.jpg";
+            ImageSrc = new BitmapImage(new Uri(ImgFilePath, UriKind.RelativeOrAbsolute));
+
+            // image list
+            ImgCommand = new RelayCommand<String>(ImgMethod);
         }
 
         #region binding & event
@@ -151,6 +159,36 @@ namespace MvvmSample.ViewModel
                 Name = "Kanasai",
                 IsSelected = true
             };
+        }
+        #endregion
+
+        #region image
+        private String ImgFilePath { get; set; }
+        private ImageSource _imageSrc;
+        public ImageSource ImageSrc
+        {
+            get => _imageSrc;
+            set => Set(() => ImageSrc, ref _imageSrc, value);
+        }
+        #endregion
+
+        #region image list
+        public ICommand ImgCommand { get; set; }
+        private String[] ImgList =
+        {
+            @"pack://application:,,,/Resource/apple.jpg",
+            @"pack://application:,,,/Resource/airballons.jpg",
+            @"pack://application:,,,/Resource/bird.jpg",
+            @"pack://application:,,,/Resource/pencils.jpg"
+        };
+        private void ImgMethod(String arg)
+        {
+            if (!Int32.TryParse(arg, out Int32 index))
+                return;
+            if (index > ImgList.Length || index < 0)
+                return;
+
+            ImageSrc = new BitmapImage(new Uri(ImgList[index], UriKind.RelativeOrAbsolute));
         }
         #endregion
     }

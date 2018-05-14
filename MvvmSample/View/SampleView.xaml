@@ -100,5 +100,25 @@
                 <Button Grid.Row="3" Content="Load" Command="{Binding LoadNameEntryCommand}"></Button>
             </Grid>
         </TabItem>
+        <TabItem Header="Image">
+            <Grid  Background="LightGray">
+                <Image Source="{Binding ImageSrc}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5"/>
+            </Grid>
+        </TabItem>
+        <TabItem Header="ImageList">
+            <Grid  Background="LightGray">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="25"/>
+                </Grid.RowDefinitions>
+                <Image Grid.Row="0" Source="{Binding ImageSrc}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5"/>
+                <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button Content="1" Command="{Binding ImgCommand}" CommandParameter="0" Margin="3"/>
+                    <Button Content="2" Command="{Binding ImgCommand}" CommandParameter="1" Margin="3"/>
+                    <Button Content="3" Command="{Binding ImgCommand}" CommandParameter="2" Margin="3"/>
+                    <Button Content="4" Command="{Binding ImgCommand}" CommandParameter="3" Margin="3"/>
+                </StackPanel>
+            </Grid>
+        </TabItem>
     </TabControl>
 </Window>

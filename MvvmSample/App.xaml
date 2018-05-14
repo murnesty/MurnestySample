@@ -9,6 +9,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <vm:SampleViewModelLocator x:Key="SampleLocator" d:IsDataSource="True" xmlns:vm="clr-namespace:MvvmSample.ViewModel" />
+            <vm:Window1ViewModelLocator x:Key="Window1Locator" d:IsDataSource="True" xmlns:vm="clr-namespace:MvvmSample.ViewModel" />
             <ResourceDictionary.MergedDictionaries>
                 <!-- style attachment -->
                 <ResourceDictionary Source="pack://application:,,,/Themes/Generic.xaml"/>

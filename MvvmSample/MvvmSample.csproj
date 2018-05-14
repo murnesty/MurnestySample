@@ -89,8 +89,13 @@
     <Compile Include="Reader\NameReader.cs" />
     <Compile Include="ViewModel\SampleViewModel.cs" />
     <Compile Include="ViewModel\SampleViewModelLocator.cs" />
+    <Compile Include="ViewModel\Window1ViewModel.cs" />
+    <Compile Include="ViewModel\Window1ViewModelLocator.cs" />
     <Compile Include="View\SampleView.xaml.cs">
       <DependentUpon>SampleView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Window1.xaml.cs">
+      <DependentUpon>Window1.xaml</DependentUpon>
     </Compile>
     <Page Include="Control\LabelTextbox.xaml">
       <SubType>Designer</SubType>
@@ -113,6 +118,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\SampleView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Window1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -153,6 +162,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resource\Custom-Icon-Design-Mini-Star-full.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resource\airballons.jpg" />
+    <Resource Include="Resource\apple.jpg" />
+    <Resource Include="Resource\bird.jpg" />
+    <Resource Include="Resource\pencils.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
