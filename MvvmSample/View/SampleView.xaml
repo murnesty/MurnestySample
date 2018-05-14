@@ -111,12 +111,21 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="25"/>
                 </Grid.RowDefinitions>
-                <Image Grid.Row="0" Source="{Binding ImageSrc}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5"/>
+                <Grid Grid.Row="0" Background="Gray">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="10"/>
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="10" Command="{Binding ImgFlipperCommand}" CommandParameter="Prev" Content="L"/>
+                    <Image Grid.Column="1" Source="{Binding ImageSrc}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5"/>
+                    <Button Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Stretch" Width="10" Command="{Binding ImgFlipperCommand}" CommandParameter="Next" Content="R"/>
+                </Grid>
                 <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Button Content="1" Command="{Binding ImgCommand}" CommandParameter="0" Margin="3"/>
-                    <Button Content="2" Command="{Binding ImgCommand}" CommandParameter="1" Margin="3"/>
-                    <Button Content="3" Command="{Binding ImgCommand}" CommandParameter="2" Margin="3"/>
-                    <Button Content="4" Command="{Binding ImgCommand}" CommandParameter="3" Margin="3"/>
+                    <Button Content="1" Command="{Binding ImgSelectorCommand}" CommandParameter="0" Margin="3" Background="{Binding Img1ButtonColor}"/>
+                    <Button Content="2" Command="{Binding ImgSelectorCommand}" CommandParameter="1" Margin="3" Background="{Binding Img2ButtonColor}"/>
+                    <Button Content="3" Command="{Binding ImgSelectorCommand}" CommandParameter="2" Margin="3" Background="{Binding Img3ButtonColor}"/>
+                    <Button Content="4" Command="{Binding ImgSelectorCommand}" CommandParameter="3" Margin="3" Background="{Binding Img4ButtonColor}"/>
                 </StackPanel>
             </Grid>
         </TabItem>

@@ -39,7 +39,12 @@ namespace MvvmSample.ViewModel
             ImageSrc = new BitmapImage(new Uri(ImgFilePath, UriKind.RelativeOrAbsolute));
 
             // image list
-            ImgCommand = new RelayCommand<String>(ImgMethod);
+            Img1ButtonColor = Brushes.Gray;
+            Img2ButtonColor = Brushes.Gray;
+            Img3ButtonColor = Brushes.Gray;
+            Img4ButtonColor = Brushes.Gray;
+            ImgSelectorCommand = new RelayCommand<String>(ImgSelectorMethod);
+            ImgFlipperCommand = new RelayCommand<String>(ImgFlipperMethod);
         }
 
         #region binding & event
@@ -173,7 +178,32 @@ namespace MvvmSample.ViewModel
         #endregion
 
         #region image list
-        public ICommand ImgCommand { get; set; }
+        private Brush _img1ButtonColor;
+        public Brush Img1ButtonColor
+        {
+            get => _img1ButtonColor;
+            set => Set(() => Img1ButtonColor, ref _img1ButtonColor, value);
+        }
+        private Brush _img2ButtonColor;
+        public Brush Img2ButtonColor
+        {
+            get => _img2ButtonColor;
+            set => Set(() => Img2ButtonColor, ref _img2ButtonColor, value);
+        }
+        private Brush _img3ButtonColor;
+        public Brush Img3ButtonColor
+        {
+            get => _img3ButtonColor;
+            set => Set(() => Img3ButtonColor, ref _img3ButtonColor, value);
+        }
+        private Brush _img4ButtonColor;
+        public Brush Img4ButtonColor
+        {
+            get => _img4ButtonColor;
+            set => Set(() => Img4ButtonColor, ref _img4ButtonColor, value);
+        }
+
+        private Int32 CurrImgIndex { get; set; } = 0;
         private String[] ImgList =
         {
             @"pack://application:,,,/Resource/apple.jpg",
@@ -181,14 +211,49 @@ namespace MvvmSample.ViewModel
             @"pack://application:,,,/Resource/bird.jpg",
             @"pack://application:,,,/Resource/pencils.jpg"
         };
-        private void ImgMethod(String arg)
+        public ICommand ImgSelectorCommand { get; set; }
+        private void ImgSelectorMethod(String arg)
         {
             if (!Int32.TryParse(arg, out Int32 index))
                 return;
+            SelectImage(index);
+        }
+        public ICommand ImgFlipperCommand { get; set; }
+        private void ImgFlipperMethod(String arg)
+        {
+            switch(arg)
+            {
+                case "Prev":
+                    if(--CurrImgIndex < 0)
+                        CurrImgIndex = 0;
+                    break;
+
+                case "Next":
+                    if (++CurrImgIndex >= ImgList.Length)
+                        CurrImgIndex = ImgList.Length - 1;
+                    break;
+            }
+            SelectImage(CurrImgIndex);
+        }
+
+        private void SelectImage(Int32 index)
+        {
             if (index > ImgList.Length || index < 0)
                 return;
 
             ImageSrc = new BitmapImage(new Uri(ImgList[index], UriKind.RelativeOrAbsolute));
+
+            Img1ButtonColor = Brushes.Gray;
+            Img2ButtonColor = Brushes.Gray;
+            Img3ButtonColor = Brushes.Gray;
+            Img4ButtonColor = Brushes.Gray;
+            switch(index)
+            {
+                case 0: Img1ButtonColor = Brushes.LightBlue; break;
+                case 1: Img2ButtonColor = Brushes.LightBlue; break;
+                case 2: Img3ButtonColor = Brushes.LightBlue; break;
+                case 3: Img4ButtonColor = Brushes.LightBlue; break;
+            }
         }
         #endregion
     }
