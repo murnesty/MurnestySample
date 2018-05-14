@@ -184,7 +184,7 @@
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Button Content="{Binding ButtonText}" Width="10" Margin="3"
+                            <Button Content="{Binding ButtonText}" Width="10" Margin="3" Background="{Binding ButtonBackground}"
                                     Command="{Binding ButtonClickCommand}" CommandParameter="{Binding ButtonClickCommandParameter}">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="MouseEnter">

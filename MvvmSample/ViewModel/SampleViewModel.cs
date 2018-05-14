@@ -43,9 +43,11 @@ namespace MvvmSample.ViewModel
             ImgFlipperCommand = new RelayCommand<String>(ImgFlipperMethod);
             ImgButtonEnterCommand = new RelayCommand<String>(ImgButtonEnterMethod);
             ImgButtonLeaveCommand = new RelayCommand(ImgButtonLeaveMethod);
-            SelectImage(0);
 
+            // item control
             Init();
+
+            SelectImage(0);
         }
 
         #region binding & event
@@ -244,6 +246,38 @@ namespace MvvmSample.ViewModel
         {
             SelectImage(CurrImgIndex);
         }
+        #endregion
+
+        #region item control
+        public class ButtonEntry : ObservableObject
+        {
+            public String ButtonText { get; set; }
+            public String ButtonClickCommandParameter { get; set; }
+            public String ButtonMouseEnterCommandParameter { get; set; }
+            private Brush _buttonBackground;
+            public Brush ButtonBackground
+            {
+                get => _buttonBackground;
+                set => Set(() => ButtonBackground, ref _buttonBackground, value);
+            }
+
+            public ICommand ButtonClickCommand { get; set; }
+            public ICommand ButtonMouseEnterCommand { get; set; }
+            public ICommand ButtonMouseLeaveCommand { get; set; }
+        }
+        public List<ButtonEntry> ItemControlSrc { get; set; }
+        private void Init()
+        {
+            ItemControlSrc = new List<ButtonEntry>
+            {
+                new ButtonEntry { ButtonText="1", ButtonClickCommand = new RelayCommand<String>(ImgSelectorMethod), ButtonClickCommandParameter="0", ButtonMouseEnterCommand = new RelayCommand<String>(ImgButtonEnterMethod), ButtonMouseLeaveCommand = new RelayCommand(ImgButtonLeaveMethod), ButtonMouseEnterCommandParameter = "0"}, 
+                new ButtonEntry { ButtonText="2", ButtonClickCommand = new RelayCommand<String>(ImgSelectorMethod), ButtonClickCommandParameter="1", ButtonMouseEnterCommand = new RelayCommand<String>(ImgButtonEnterMethod), ButtonMouseLeaveCommand = new RelayCommand(ImgButtonLeaveMethod), ButtonMouseEnterCommandParameter = "1"}, 
+                new ButtonEntry { ButtonText="3", ButtonClickCommand = new RelayCommand<String>(ImgSelectorMethod), ButtonClickCommandParameter="2", ButtonMouseEnterCommand = new RelayCommand<String>(ImgButtonEnterMethod), ButtonMouseLeaveCommand = new RelayCommand(ImgButtonLeaveMethod), ButtonMouseEnterCommandParameter = "2"}, 
+                new ButtonEntry { ButtonText="4", ButtonClickCommand = new RelayCommand<String>(ImgSelectorMethod), ButtonClickCommandParameter="3", ButtonMouseEnterCommand = new RelayCommand<String>(ImgButtonEnterMethod), ButtonMouseLeaveCommand = new RelayCommand(ImgButtonLeaveMethod), ButtonMouseEnterCommandParameter = "3"},  
+            };
+        }
+        #endregion
+
         private void SelectImage(Int32 index)
         {
             if (index > ImgList.Length || index < 0)
@@ -262,31 +296,12 @@ namespace MvvmSample.ViewModel
                 case 2: Img3ButtonColor = Brushes.LightBlue; break;
                 case 3: Img4ButtonColor = Brushes.LightBlue; break;
             }
-        }
-        #endregion
 
-        #region item control
-        public class ButtonEntry
-        {
-            public String ButtonText { get; set; }
-            public String ButtonClickCommandParameter { get; set; }
-            public String ButtonMouseEnterCommandParameter { get; set; }
-
-            public ICommand ButtonClickCommand { get; set; }
-            public ICommand ButtonMouseEnterCommand { get; set; }
-            public ICommand ButtonMouseLeaveCommand { get; set; }
+            ItemControlSrc[0].ButtonBackground = Brushes.Gray;
+            ItemControlSrc[1].ButtonBackground = Brushes.Gray;
+            ItemControlSrc[2].ButtonBackground = Brushes.Gray;
+            ItemControlSrc[3].ButtonBackground = Brushes.Gray;
+            ItemControlSrc[CurrImgIndex].ButtonBackground = Brushes.LightBlue;
         }
-        public List<ButtonEntry> ItemControlSrc { get; set; }
-        private void Init()
-        {
-            ItemControlSrc = new List<ButtonEntry>
-            {
-                new ButtonEntry { ButtonText="1", ButtonClickCommand = new RelayCommand<String>(ImgSelectorMethod), ButtonClickCommandParameter="0", ButtonMouseEnterCommand = new RelayCommand<String>(ImgButtonEnterMethod), ButtonMouseLeaveCommand = new RelayCommand(ImgButtonLeaveMethod), ButtonMouseEnterCommandParameter = "0"}, 
-                new ButtonEntry { ButtonText="2", ButtonClickCommand = new RelayCommand<String>(ImgSelectorMethod), ButtonClickCommandParameter="1", ButtonMouseEnterCommand = new RelayCommand<String>(ImgButtonEnterMethod), ButtonMouseLeaveCommand = new RelayCommand(ImgButtonLeaveMethod), ButtonMouseEnterCommandParameter = "1"}, 
-                new ButtonEntry { ButtonText="3", ButtonClickCommand = new RelayCommand<String>(ImgSelectorMethod), ButtonClickCommandParameter="2", ButtonMouseEnterCommand = new RelayCommand<String>(ImgButtonEnterMethod), ButtonMouseLeaveCommand = new RelayCommand(ImgButtonLeaveMethod), ButtonMouseEnterCommandParameter = "2"}, 
-                new ButtonEntry { ButtonText="4", ButtonClickCommand = new RelayCommand<String>(ImgSelectorMethod), ButtonClickCommandParameter="3", ButtonMouseEnterCommand = new RelayCommand<String>(ImgButtonEnterMethod), ButtonMouseLeaveCommand = new RelayCommand(ImgButtonLeaveMethod), ButtonMouseEnterCommandParameter = "3"},  
-            };
-        }
-        #endregion
     }
 }
