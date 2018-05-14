@@ -34,10 +34,6 @@ namespace MvvmSample.ViewModel
             // control
             LoadNameEntryCommand = new RelayCommand(LoadNameEntryMethod);
 
-            // image
-            ImgFilePath = @"pack://application:,,,/Resource/apple.jpg";
-            ImageSrc = new BitmapImage(new Uri(ImgFilePath, UriKind.RelativeOrAbsolute));
-
             // image list
             Img1ButtonColor = Brushes.Gray;
             Img2ButtonColor = Brushes.Gray;
@@ -45,6 +41,11 @@ namespace MvvmSample.ViewModel
             Img4ButtonColor = Brushes.Gray;
             ImgSelectorCommand = new RelayCommand<String>(ImgSelectorMethod);
             ImgFlipperCommand = new RelayCommand<String>(ImgFlipperMethod);
+            ImgButtonEnterCommand = new RelayCommand<String>(ImgButtonEnterMethod);
+            ImgButtonLeaveCommand = new RelayCommand(ImgButtonLeaveMethod);
+            SelectImage(0);
+
+            Init();
         }
 
         #region binding & event
@@ -167,16 +168,6 @@ namespace MvvmSample.ViewModel
         }
         #endregion
 
-        #region image
-        private String ImgFilePath { get; set; }
-        private ImageSource _imageSrc;
-        public ImageSource ImageSrc
-        {
-            get => _imageSrc;
-            set => Set(() => ImageSrc, ref _imageSrc, value);
-        }
-        #endregion
-
         #region image list
         private Brush _img1ButtonColor;
         public Brush Img1ButtonColor
@@ -204,6 +195,12 @@ namespace MvvmSample.ViewModel
         }
 
         private Int32 CurrImgIndex { get; set; } = 0;
+        private ImageSource _imageSrc;
+        public ImageSource ImageSrc
+        {
+            get => _imageSrc;
+            set => Set(() => ImageSrc, ref _imageSrc, value);
+        }
         private String[] ImgList =
         {
             @"pack://application:,,,/Resource/apple.jpg",
@@ -221,10 +218,10 @@ namespace MvvmSample.ViewModel
         public ICommand ImgFlipperCommand { get; set; }
         private void ImgFlipperMethod(String arg)
         {
-            switch(arg)
+            switch (arg)
             {
                 case "Prev":
-                    if(--CurrImgIndex < 0)
+                    if (--CurrImgIndex < 0)
                         CurrImgIndex = 0;
                     break;
 
@@ -235,25 +232,60 @@ namespace MvvmSample.ViewModel
             }
             SelectImage(CurrImgIndex);
         }
-
+        public ICommand ImgButtonEnterCommand { get; set; }
+        private void ImgButtonEnterMethod(String arg)
+        {
+            if (!Int32.TryParse(arg, out Int32 index))
+                return;
+            SelectImage(index);
+        }
+        public ICommand ImgButtonLeaveCommand { get; set; }
+        private void ImgButtonLeaveMethod()
+        {
+            SelectImage(CurrImgIndex);
+        }
         private void SelectImage(Int32 index)
         {
             if (index > ImgList.Length || index < 0)
                 return;
-
+            CurrImgIndex = index;
             ImageSrc = new BitmapImage(new Uri(ImgList[index], UriKind.RelativeOrAbsolute));
 
             Img1ButtonColor = Brushes.Gray;
             Img2ButtonColor = Brushes.Gray;
             Img3ButtonColor = Brushes.Gray;
             Img4ButtonColor = Brushes.Gray;
-            switch(index)
+            switch (index)
             {
                 case 0: Img1ButtonColor = Brushes.LightBlue; break;
                 case 1: Img2ButtonColor = Brushes.LightBlue; break;
                 case 2: Img3ButtonColor = Brushes.LightBlue; break;
                 case 3: Img4ButtonColor = Brushes.LightBlue; break;
             }
+        }
+        #endregion
+
+        #region item control
+        public class ButtonEntry
+        {
+            public String ButtonText { get; set; }
+            public String ButtonClickCommandParameter { get; set; }
+            public String ButtonMouseEnterCommandParameter { get; set; }
+
+            public ICommand ButtonClickCommand { get; set; }
+            public ICommand ButtonMouseEnterCommand { get; set; }
+            public ICommand ButtonMouseLeaveCommand { get; set; }
+        }
+        public List<ButtonEntry> ItemControlSrc { get; set; }
+        private void Init()
+        {
+            ItemControlSrc = new List<ButtonEntry>
+            {
+                new ButtonEntry { ButtonText="1", ButtonClickCommand = new RelayCommand<String>(ImgSelectorMethod), ButtonClickCommandParameter="0", ButtonMouseEnterCommand = new RelayCommand<String>(ImgButtonEnterMethod), ButtonMouseLeaveCommand = new RelayCommand(ImgButtonLeaveMethod), ButtonMouseEnterCommandParameter = "0"}, 
+                new ButtonEntry { ButtonText="2", ButtonClickCommand = new RelayCommand<String>(ImgSelectorMethod), ButtonClickCommandParameter="1", ButtonMouseEnterCommand = new RelayCommand<String>(ImgButtonEnterMethod), ButtonMouseLeaveCommand = new RelayCommand(ImgButtonLeaveMethod), ButtonMouseEnterCommandParameter = "1"}, 
+                new ButtonEntry { ButtonText="3", ButtonClickCommand = new RelayCommand<String>(ImgSelectorMethod), ButtonClickCommandParameter="2", ButtonMouseEnterCommand = new RelayCommand<String>(ImgButtonEnterMethod), ButtonMouseLeaveCommand = new RelayCommand(ImgButtonLeaveMethod), ButtonMouseEnterCommandParameter = "2"}, 
+                new ButtonEntry { ButtonText="4", ButtonClickCommand = new RelayCommand<String>(ImgSelectorMethod), ButtonClickCommandParameter="3", ButtonMouseEnterCommand = new RelayCommand<String>(ImgButtonEnterMethod), ButtonMouseLeaveCommand = new RelayCommand(ImgButtonLeaveMethod), ButtonMouseEnterCommandParameter = "3"},  
+            };
         }
         #endregion
     }
